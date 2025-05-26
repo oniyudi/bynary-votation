@@ -1,6 +1,6 @@
 function Principal() {
     return (
-        <div>
+        <div className="bg-slate-500 w-screen h-screen">
 
         </div>
     )
