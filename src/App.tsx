@@ -44,7 +44,7 @@ function App() {
       <div className="border-2 rounded-2xl h-1/2 w-1/2 bg-slate-400 p-2 flex flex-col items-center text-lg gap-10">
         <div className="flex flex-col w-full gap-1">
           <span>Informe o tema a ser votado:</span>
-          <input type="text" name="descricao" className="bg-zinc-300 rounded" value={question} onChange={(event) => setQuestion(event.target.value)}/>
+          <Input op={question} setOpcao={setQuestion} name={"descricao"}/>
         </div>
         <div className="flex justify-between w-5/6">
             <div className="border-2 w-1/3 rounded-md flex flex-col items-center p-2 gap-2">
