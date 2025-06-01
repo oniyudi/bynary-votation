@@ -56,7 +56,7 @@ function App() {
               <Input op={opcao2} setOpcao={setOpcao2} name={"opcao2"}/>
             </div>
         </div>
-        <Button descricao="Começar votação" createDados={criarDados}/>
+        <Button descricao="Começar votação" createDados={criarDados} disabled={false}/>
       </div>
     </div>
   )
