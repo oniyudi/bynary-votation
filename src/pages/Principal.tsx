@@ -12,16 +12,20 @@ function Principal() {
     const opcao2 = searchParams.get("opcao2")
     let votosOp1 = 0
     let votosOp2 = 0
+    let index = 0
 
     function votar(op: number) {
+        index++
         switch(op){
             case 1:
                 votosOp1++
+                adicionarLinha({op1: 1, op2: 0, indice: index})
                 alert("Você selecionou a opção 1 - \"" + opcao1 + "\"")
                 break
             case 2:
                 votosOp2++
-                alert("Você selecionou a opção 1 - \"" + opcao1 + "\"")
+                adicionarLinha({op1: 0, op2: 1, indice: index})
+                alert("Você selecionou a opção 2 - \"" + opcao2 + "\"")
                 break
             default:
                 alert("Opção inexistente!")
@@ -49,6 +53,28 @@ function Principal() {
         setDesabilitado(false)
         document.getElementById('resultado')?.setAttribute("class", "hidden")
         navigate(-1)
+    }
+
+    function adicionarLinha(dados: {op1: number, op2: number, indice: number}){
+        let bodyTable = document.getElementById("bodyTable")
+
+        let tr = document.createElement("tr")
+        let th = document.createElement("th")
+        let td1 = document.createElement("td")
+        let td2 = document.createElement("td")
+
+        th.textContent = dados.indice + "°"
+        th.setAttribute("scope", "row")
+        td1.textContent = dados.op1.toString()
+        td1.setAttribute("class", "border p-1 text-center")
+        td2.textContent = dados.op2.toString()
+        td2.setAttribute("class", "border p-1 text-center")
+
+        tr.appendChild(th)
+        tr.appendChild(td1)
+        tr.appendChild(td2)
+
+        bodyTable?.appendChild(tr)
     }
 
     return (

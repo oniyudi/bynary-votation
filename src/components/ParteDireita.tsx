@@ -10,13 +10,7 @@ function ParteDireita() {
                             <th scope="col" className="border p-1">Opção 2</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1°</th>
-                            <td className="border p-1 text-center">0</td>
-                            <td className="border p-1 text-center">1</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="bodyTable"></tbody>
                 </table>
             </div>
             <div className="flex flex-col">
