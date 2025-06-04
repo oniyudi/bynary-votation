@@ -66,6 +66,12 @@ function App() {
         </div>
         <Button descricao="Começar votação" createDados={criarDados} disabled={false}/>
       </div>
+      <div className="mt-auto">
+        <div className="flex flex-col items-center">
+                <span className="text-white font-bold">Sistema desenvolvido exclusivamente para o seminário de EDG1 - turma B</span>
+                <span className="text-white font-bold">Autores: Yudi, Renato, Otavio, Mateus, José Vitor</span>
+            </div>
+      </div>
     </div>
   )
 }
