@@ -4,19 +4,25 @@ import Input from "./components/Input"
 import Button from "./components/Button"
 
 function App() {
+  //navigate vai permitir mudar para a proxima pagina
   const navigate = useNavigate()
+
+  //variaveis que serão passadas para a outra pagina
   const [question, setQuestion] = useState("")
   const [opcao1, setOpcao1] = useState("")
   const [opcao2, setOpcao2] = useState("")
 
+  //verifica se os campos foram preenchidos
   function criarDados() {
     if(!question.trim() || !opcao1.trim() || !opcao2.trim()) {
       return alert("Preencha todos os campos!")
     }
 
+    //chama a função que vai armazenar os dados
     onAddDadosSubmit(question, opcao1, opcao2)
   }
 
+  //armazena os dados
   function onAddDadosSubmit(descricao: string, op1: string, op2: string) {
     const dados = {
       descricao,
@@ -24,9 +30,11 @@ function App() {
       op2
     }
 
+    //chama a função que vai começar a votação
     startVotation(dados)
   }
 
+  //inicia a votação, alterando a pagina
   function startVotation(dados: {descricao: string, op1: string, op2: string}) {
     const query = new URLSearchParams()
     query.set("descricao", dados.descricao)
