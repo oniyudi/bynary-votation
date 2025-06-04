@@ -17,9 +17,11 @@ function Principal() {
         switch(op){
             case 1:
                 votosOp1++
+                alert("Você selecionou a opção 1 - \"" + opcao1 + "\"")
                 break
             case 2:
                 votosOp2++
+                alert("Você selecionou a opção 1 - \"" + opcao1 + "\"")
                 break
             default:
                 alert("Opção inexistente!")
