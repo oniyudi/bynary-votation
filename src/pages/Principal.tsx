@@ -1,51 +1,69 @@
 import { useNavigate, useSearchParams } from "react-router-dom"
 import Button from "../components/Button"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import ParteDireita from "../components/ParteDireita"
 
 function Principal() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const [desabilitado, setDesabilitado] = useState(false)
+
+    const [votValor, setVotValor] = useState(0)
+    const [diferente, setDiferente] = useState(0)
+    const [botaoPressionado, setBotaoPressionado] = useState(0)
+    const [votacaoAndamento, setVotacaoAndamento] = useState(1)
+
     const descricao = searchParams.get("descricao")
     const opcao1 = searchParams.get("opcao1")
     const opcao2 = searchParams.get("opcao2")
-    let votosOp1 = 0
-    let votosOp2 = 0
-    let index = 0
+    let votosOp1 = useRef(0)
+    let votosOp2 = useRef(0)
+    let index = useRef(0)
 
     function votar(op: number) {
-        index++
+        index.current++
         switch(op){
             case 1:
-                votosOp1++
-                adicionarLinha({op1: 1, op2: 0, indice: index})
+                votosOp1.current++
+                adicionarLinha({op1: 1, op2: 0, indice: index.current})
                 alert("Você selecionou a opção 1 - \"" + opcao1 + "\"")
                 break
             case 2:
-                votosOp2++
-                adicionarLinha({op1: 0, op2: 1, indice: index})
+                votosOp2.current++
+                adicionarLinha({op1: 0, op2: 1, indice: index.current})
                 alert("Você selecionou a opção 2 - \"" + opcao2 + "\"")
                 break
             default:
                 alert("Opção inexistente!")
         }
+
+        if(votosOp1.current > 0 || votosOp2.current > 0) {
+            setVotValor(1)
+        }
+        const novoDiferente = index.current % 2
+        setDiferente(novoDiferente)
     }
 
     function pararVotacao() {
-        const v1 = document.getElementById('votos-1')
-        const v2 = document.getElementById('votos-2')
-        const venc = document.getElementById('vencedor')
+        if(votValor == 1 && votosOp1.current != votosOp2.current) {
+            const v1 = document.getElementById('votos-1')
+            const v2 = document.getElementById('votos-2')
+            const venc = document.getElementById('vencedor')
 
-        if (v1 && v2 && venc) {
-            v1.textContent = votosOp1 + " votos"
-            v2.textContent = votosOp2 + " votos"
-            venc.textContent = votosOp1 > votosOp2 ? "Opção 1 - \"" + opcao1 + "\"" : "Opção 2 - \"" + opcao2 + "\""
+            if (v1 && v2 && venc) {
+                v1.textContent = votosOp1.current + " votos"
+                v2.textContent = votosOp2.current + " votos"
+                venc.textContent = votosOp1.current > votosOp2.current ? "Opção 1 - \"" + opcao1 + "\"" : "Opção 2 - \"" + opcao2 + "\""
 
-            const res = document.getElementById('resultado')
-            res?.setAttribute("class", "border rounded-md bg-slate-200 w-2/3 max-w-full overflow-auto break-words flex justify-between flex-wrap md:flex-row")
+                const res = document.getElementById('resultado')
+                res?.setAttribute("class", "border rounded-md bg-slate-200 w-2/3 max-w-full overflow-auto break-words flex justify-between flex-wrap md:flex-row")
 
-            setDesabilitado(true)
+                setDesabilitado(true)
+                setBotaoPressionado(1)
+                setVotacaoAndamento(0)
+            }
+        } else {
+            alert("Deve ter pelo menos um voto e não pode empate")
         }
     }
 
@@ -124,7 +142,11 @@ function Principal() {
                     </div>
                 </div>
                 <div className="border-4 border-black h-full"></div>
-                <ParteDireita/>
+                <ParteDireita andamento={votacaoAndamento} qnt={votValor} pressButton={botaoPressionado} diferente={diferente}/>
+            </div>
+            <div className="flex flex-col items-center">
+                <span className="text-white font-bold">Sistema desenvolvido exclusivamente para o seminário de EDG1 - turma B</span>
+                <span className="text-white font-bold">Autores: Yudi, Renato, Otavio, Mateus, José Vitor</span>
             </div>
         </div>
     )
